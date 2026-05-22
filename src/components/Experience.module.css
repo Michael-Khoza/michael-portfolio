@@ -1,0 +1,13 @@
+.section { background: var(--bg2); }
+.list { display: flex; flex-direction: column; gap: 1.25rem; margin-top: 2.5rem; }
+.card {
+  background: var(--bg3); border: 1px solid var(--border);
+  border-radius: 10px; padding: 1.5rem;
+  display: flex; gap: 2rem; align-items: flex-start;
+  transition: border-color .2s;
+}
+.card:hover { border-color: var(--khaki2); }
+.year { font-family: var(--font-display); font-weight: 800; font-size: 1.3rem; color: var(--khaki2); min-width: 52px; padding-top: .1rem; }
+.title { font-family: var(--font-display); font-weight: 700; font-size: 1rem; color: var(--cream); margin-bottom: .2rem; }
+.org { font-size: .75rem; color: var(--lime); font-weight: 500; margin-bottom: .4rem; text-transform: uppercase; letter-spacing: .05em; }
+.desc { font-size: .84rem; color: var(--khaki); line-height: 1.7; }

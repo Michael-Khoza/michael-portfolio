@@ -1,0 +1,40 @@
+.about { background: var(--bg); }
+.grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start; }
+.text { font-size: .95rem; line-height: 1.85; color: var(--khaki); }
+.text p + p { margin-top: 1rem; }
+.links { display: flex; gap: .75rem; margin-top: 1.5rem; flex-wrap: wrap; }
+.link {
+  display: inline-flex; align-items: center; gap: .4rem;
+  background: var(--bg3); border: 1px solid var(--border);
+  color: var(--khaki2); font-size: .75rem; padding: .4rem .9rem;
+  border-radius: 20px; transition: border-color .2s, color .2s;
+}
+.link:hover { border-color: var(--ice); color: var(--ice); }
+.iciCard {
+  background: var(--bg3); border: 1px solid var(--border);
+  border-radius: 12px; padding: 2rem; position: relative; overflow: hidden;
+}
+.iciWatermark {
+  position: absolute; right: -15px; top: -25px;
+  font-family: var(--font-display); font-size: 9rem; font-weight: 800;
+  color: rgba(168,216,234,.03); pointer-events: none; line-height: 1;
+  user-select: none;
+}
+.iciBadge {
+  display: inline-block; background: rgba(168,216,234,.1); color: var(--ice);
+  font-size: .68rem; letter-spacing: .1em; text-transform: uppercase;
+  padding: .2rem .6rem; border-radius: 3px;
+  border: 1px solid rgba(168,216,234,.2); margin-bottom: .75rem;
+}
+.iciName {
+  font-size: 1.4rem; font-weight: 800; margin-bottom: .5rem; color: var(--cream);
+}
+.iciDesc { font-size: .85rem; color: var(--khaki); line-height: 1.75; }
+.pillars { display: grid; grid-template-columns: 1fr 1fr; gap: .65rem; margin-top: 1.25rem; }
+.pillar {
+  background: var(--bg2); border: 1px solid var(--border);
+  border-radius: 6px; padding: .65rem .75rem;
+  font-size: .75rem; color: var(--khaki2);
+}
+.pillarTitle { display: block; color: var(--cream); font-weight: 500; font-size: .8rem; margin-bottom: .15rem; }
+@media (max-width: 800px) { .grid { grid-template-columns: 1fr; } }

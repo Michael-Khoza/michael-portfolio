@@ -1,0 +1,13 @@
+.footer {
+  padding: 2rem 3rem; border-top: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem;
+}
+.left  { font-family: var(--font-display); font-weight: 700; font-size: .85rem; color: var(--muted); }
+.right { font-size: .72rem; color: var(--muted); }
+.social { display: flex; gap: .6rem; }
+.link {
+  color: var(--muted); font-size: .75rem; padding: .3rem .6rem;
+  border: 1px solid var(--border); border-radius: 4px; transition: color .2s, border-color .2s;
+}
+.link:hover { color: var(--lime); border-color: var(--lime); }
+@media (max-width: 600px) { .footer { flex-direction: column; text-align: center; padding: 1.5rem; } }

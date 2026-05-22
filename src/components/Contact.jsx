@@ -1,0 +1,113 @@
+import { useState } from 'react'
+import { supabase } from '../lib/supabase'
+import styles from './Contact.module.css'
+
+const contacts = [
+  { icon:'📞', label:'Phone',            value:'+27 69 431 7707',                href:'tel:+27694317707' },
+  { icon:'✉️', label:'Personal Email',   value:'khozamichael21@gmail.com',        href:'mailto:khozamichael21@gmail.com' },
+  { icon:'🎓', label:'University Email', value:'231954775@tut4life.ac.za',         href:'mailto:231954775@tut4life.ac.za' },
+  { icon:'⌥',  label:'GitHub',           value:'github.com/Michael-Khoza',        href:'https://github.com/Michael-Khoza' },
+  { icon:'in', label:'LinkedIn',         value:'michael-khoza-65781831b',          href:'https://www.linkedin.com/in/michael-khoza-65781831b' },
+]
+
+export default function Contact() {
+  const [form, setForm] = useState({ name:'', email:'', subject:'', message:'' })
+  const [status, setStatus] = useState('idle') // idle | loading | success | error
+
+  const handleChange = e => setForm(f => ({ ...f, [e.target.name]: e.target.value }))
+
+  const handleSubmit = async e => {
+    e.preventDefault()
+    if (!form.name || !form.email || !form.message) return
+
+    setStatus('loading')
+    try {
+      const { error } = await supabase
+        .from('contact_messages')
+        .insert([{
+          name: form.name,
+          email: form.email,
+          subject: form.subject,
+          message: form.message,
+          created_at: new Date().toISOString(),
+        }])
+
+      if (error) throw error
+
+      setStatus('success')
+      setForm({ name:'', email:'', subject:'', message:'' })
+    } catch (err) {
+      console.error('Supabase error:', err)
+      setStatus('error')
+    }
+  }
+
+  return (
+    <section id="contact" className={styles.section}>
+      <div className="container">
+        <div className="section-label">Let's Connect</div>
+        <h2 className="section-title">Get In<br /><span style={{color:'var(--ice)'}}>Touch</span></h2>
+
+        <div className={styles.grid}>
+          <div>
+            <p className={styles.intro}>
+              Open to internships, industry experience, collaborations, and conversations about
+              cybersecurity, AI, data science, and building things that matter.
+            </p>
+            <div className={styles.contactList}>
+              {contacts.map(c => (
+                <a key={c.label} href={c.href} target={c.href.startsWith('http') ? '_blank' : undefined}
+                   rel="noreferrer" className={styles.contactItem}>
+                  <div className={styles.contactIcon}>{c.icon}</div>
+                  <div>
+                    <div className={styles.contactLabel}>{c.label}</div>
+                    <div className={styles.contactValue}>{c.value}</div>
+                  </div>
+                </a>
+              ))}
+            </div>
+          </div>
+
+          <form className={styles.form} onSubmit={handleSubmit}>
+            <div className={styles.formHead}>
+              <div className={styles.formTitle}>Send a Message</div>
+              <div className={styles.formNote}>I'll respond within 24 hours. My AI agent follows up automatically.</div>
+            </div>
+
+            {[
+              { name:'name',    label:'Your Name',  type:'text',  placeholder:'Jane Smith' },
+              { name:'email',   label:'Email',      type:'email', placeholder:'jane@company.com' },
+              { name:'subject', label:'Subject',    type:'text',  placeholder:'Internship / Collaboration / ...' },
+            ].map(f => (
+              <div key={f.name} className={styles.field}>
+                <label className={styles.label}>{f.label}</label>
+                <input className={styles.input} type={f.type} name={f.name}
+                  value={form[f.name]} onChange={handleChange} placeholder={f.placeholder} />
+              </div>
+            ))}
+
+            <div className={styles.field}>
+              <label className={styles.label}>Message</label>
+              <textarea className={styles.input} name="message" rows={4}
+                value={form.message} onChange={handleChange}
+                placeholder="Tell me about the opportunity..." />
+            </div>
+
+            <button type="submit" className="btn-primary"
+              style={{width:'100%', justifyContent:'center'}}
+              disabled={status === 'loading'}>
+              {status === 'loading' ? 'Sending...' : 'Send Message →'}
+            </button>
+
+            {status === 'success' && (
+              <div className={styles.success}>✓ Message saved! Michael's AI agent will follow up shortly.</div>
+            )}
+            {status === 'error' && (
+              <div className={styles.error}>⚠ Could not send — check your Supabase connection.</div>
+            )}
+          </form>
+        </div>
+      </div>
+    </section>
+  )
+}

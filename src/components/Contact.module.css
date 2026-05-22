@@ -1,0 +1,37 @@
+.section { background: var(--bg2); }
+.grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; margin-top: 2.5rem; }
+.intro { font-size: .9rem; color: var(--khaki); line-height: 1.75; margin-bottom: 1.25rem; }
+.contactList { display: flex; flex-direction: column; gap: .75rem; }
+.contactItem {
+  display: flex; align-items: center; gap: .9rem;
+  padding: .85rem 1rem; background: var(--bg3);
+  border: 1px solid var(--border); border-radius: 8px; transition: border-color .2s;
+}
+.contactItem:hover { border-color: var(--khaki2); }
+.contactIcon {
+  width: 34px; height: 34px; border-radius: 6px; background: var(--bg2);
+  border: 1px solid var(--border); display: flex; align-items: center;
+  justify-content: center; font-size: .85rem; flex-shrink: 0; font-style: normal;
+}
+.contactLabel { font-size: .65rem; color: var(--muted); text-transform: uppercase; letter-spacing: .08em; }
+.contactValue { font-size: .82rem; color: var(--cream); margin-top: .1rem; }
+.form {
+  background: var(--bg3); border: 1px solid var(--border);
+  border-radius: 12px; padding: 1.75rem;
+  display: flex; flex-direction: column; gap: .9rem;
+}
+.formHead { margin-bottom: .25rem; }
+.formTitle { font-family: var(--font-display); font-weight: 700; font-size: 1rem; color: var(--cream); margin-bottom: .25rem; }
+.formNote { font-size: .75rem; color: var(--muted); }
+.field { display: flex; flex-direction: column; gap: .35rem; }
+.label { font-size: .68rem; color: var(--muted); text-transform: uppercase; letter-spacing: .08em; }
+.input {
+  background: var(--bg2); border: 1px solid var(--border); border-radius: 6px;
+  color: var(--cream); font-size: .85rem; padding: .6rem .8rem;
+  outline: none; font-family: var(--font-body); transition: border-color .2s; resize: none;
+}
+.input:focus { border-color: var(--khaki2); }
+.input::placeholder { color: var(--muted); }
+.success { font-size: .8rem; color: var(--lime); padding: .5rem 0; }
+.error   { font-size: .8rem; color: var(--orange); padding: .5rem 0; }
+@media (max-width: 800px) { .grid { grid-template-columns: 1fr; } }
