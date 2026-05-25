@@ -108,3 +108,9 @@ section { padding: 6rem 3rem; }
   section { padding: 4rem 1.25rem; }
   .nav-links { display: none !important; }
 }
+
+[class*="JotformAgent"], [id*="JotformAgent"] {
+  z-index: 99999 !important;
+  pointer-events: all !important;
+  position: fixed !important;
+}

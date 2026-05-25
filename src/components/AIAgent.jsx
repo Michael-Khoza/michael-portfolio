@@ -1,7 +1,8 @@
 import { useEffect } from 'react'
 import styles from './AIAgent.module.css'
 
-const JOTFORM_SCRIPT = 'https://cdn.jotfor.ms/agent/embedjs/019e4cc3c0c1778d9c1afe73dce0d1aac291/embed.js?autoOpenChatIn=1'
+const JOTFORM_SCRIPT = 'https://cdn.jotfor.ms/agent/embedjs/019e4cc3c0c1778d9c1afe73dce0d1aac291/embed.js?autoOpenChatIn=0'
+const JOTFORM_SCRIPT_ID = 'jotform-agent-script'
 
 const features = [
   { icon:'📧', color:'lime',   title:'Auto Email Follow-up',           desc:'Sends an automatic reply to anyone who reaches out — powered by Jotform + Gmail integration.' },
@@ -11,14 +12,41 @@ const features = [
 
 export default function AIAgent() {
   useEffect(() => {
+    if (
+      document.getElementById(JOTFORM_SCRIPT_ID) ||
+      document.querySelector('script[src*="019e4cc3c0c1778d9c1afe73dce0d1aac291/embed.js"]')
+    ) {
+      return undefined
+    }
+
     const script = document.createElement('script')
+    script.id = JOTFORM_SCRIPT_ID
     script.src = JOTFORM_SCRIPT
     script.async = true
     document.body.appendChild(script)
-    return () => {
-      document.body.removeChild(script)
-    }
   }, [])
+
+  const openAgentChat = () => {
+    const agentWindow = window.JotformAgent || window.JotFormAgent || window.AgentInitializer
+
+    if (agentWindow?.open) {
+      agentWindow.open()
+      return
+    }
+
+    if (agentWindow?.openChat) {
+      agentWindow.openChat()
+      return
+    }
+
+    const chatLauncher = document.querySelector(
+      '[class*="JotformAgent"], [id*="JotformAgent"], [class*="jotform-agent"], [id*="jotform-agent"]'
+    )
+
+    if (chatLauncher instanceof HTMLElement) {
+      chatLauncher.click()
+    }
+  }
 
   return (
     <section id="agent" className={styles.section}>
@@ -63,6 +91,9 @@ export default function AIAgent() {
                 The agent can answer questions, share my GitHub &amp; LinkedIn,
                 and send you a follow-up email automatically.
               </div>
+              <button type="button" className="btn-primary" onClick={openAgentChat}>
+                💬 Open Agent Chat
+              </button>
             </div>
           </div>
         </div>

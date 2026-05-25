@@ -25,18 +25,17 @@ export default function About() {
 
           <div className={styles.iciCard}>
             <div className={styles.iciWatermark}>ICI</div>
-            <span className={styles.iciBadge}>Startup · Founder</span>
+            <span className={styles.iciBadge}>Enterprise · Est. 2025</span>
             <h3 className={styles.iciName}>Inter-Cyber Intelligence</h3>
             <p className={styles.iciDesc}>
-              A next-generation intelligence platform combining cybersecurity and AI-driven data analysis —
-              built to give organisations the edge they need to defend, decide, and scale.
+              ICI (Inter-Cyber Intelligence) is an enterprise that develops sophisticated software applications and delivers cutting-edge cybersecurity and data science services — including custom AI agent development. Founded in 2025, ICI exists to help organisations defend against threats, make data-driven decisions, and scale with intelligent technology.
             </p>
             <div className={styles.pillars}>
               {[
-                { icon: '🛡️', title: 'Cyber Defense',   desc: 'Threat intelligence & monitoring' },
-                { icon: '📊', title: 'Data Analytics',  desc: 'AI-powered insights engine' },
-                { icon: '🤖', title: 'AI Agents',       desc: 'Automated response systems' },
-                { icon: '🌐', title: 'Full-Stack',      desc: 'Web & mobile platforms' },
+                { icon: '🌐', title: 'Software Development', desc: 'Web & mobile platforms' },
+                { icon: '🛡️', title: 'Cybersecurity Services', desc: 'Threat intelligence & monitoring' },
+                { icon: '📊', title: 'Data Science Services', desc: 'AI-powered insights engine' },
+                { icon: '🤖', title: 'Custom AI Agents', desc: 'Automated response systems' },
               ].map(p => (
                 <div key={p.title} className={styles.pillar}>
                   <span className={styles.pillarTitle}>{p.icon} {p.title}</span>
