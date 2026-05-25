@@ -1,7 +1,7 @@
 import styles from './Experience.module.css'
 
 const events = [
-  { year:'2026', title:'Hult Prize Global Competition', org:'Hult Prize Foundation · Global', desc:'Competed in one of the world\'s largest student social entrepreneurship competitions, developing a venture addressing a global challenge with real-world scalability and impact.' },
+  { year:'2026', title:'Hult Prize Local Competition', org:'Hult Prize Foundation · Local', desc:'Competed in the Hult Prize local competition, developing a venture concept addressing a real-world challenge with measurable social and economic impact.' },
   { year:'2025', title:'FNB Hackathon', org:'First National Bank · South Africa', desc:'Built fintech solutions under pressure and presented to industry professionals in the financial technology space.' },
   { year:'2025', title:'IBM Z Datathon', org:'IBM · Data Science Competition', desc:'Applied data science skills on IBM Z mainframe infrastructure, solving real-world data challenges with exposure to enterprise-grade systems.' },
   { year:'2025', title:'TelkomX Hackathon', org:'Telkom · South Africa', desc:'Built and pitched a technology solution within a tight hackathon window — prototyping, iterating, and presenting to Telkom industry judges.' },
