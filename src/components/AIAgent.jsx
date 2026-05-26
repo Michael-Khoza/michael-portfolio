@@ -5,9 +5,10 @@ const JOTFORM_SCRIPT = 'https://cdn.jotfor.ms/agent/embedjs/019e4cc3c0c1778d9c1a
 const JOTFORM_SCRIPT_ID = 'jotform-agent-script'
 
 const features = [
-  { icon:'📧', color:'lime',   title:'Auto Email Follow-up',           desc:'Sends an automatic reply to anyone who reaches out — powered by Jotform + Gmail integration.' },
-  { icon:'🧠', color:'ice',    title:'Knows Everything About Michael', desc:'Trained on skills, experience, ICI, credentials and availability — answers recruiter questions instantly.' },
-  { icon:'💬', color:'orange', title:'WhatsApp & LinkedIn',            desc:'Shares direct WhatsApp and LinkedIn links instantly when asked.' },
+  { icon:'📧', color:'lime',   title:'Auto Email Follow-up',           desc:'Automatically sends a personalised follow-up email to every visitor who reaches out — no manual effort needed, every lead is captured.' },
+  { icon:'🧠', color:'ice',    title:'Knows Everything About Michael', desc:'Trained on Michael\'s full profile — skills, ICI services, credentials, competition history and availability. Handles recruiter and client questions instantly.' },
+  { icon:'💬', color:'orange', title:'WhatsApp & LinkedIn',            desc:'Instantly shares Michael\'s WhatsApp link (wa.me/27694317707) and LinkedIn profile when asked — connecting people directly without friction.' },
+  { icon:'⚡', color:'lime',   title:'More Actions Coming Soon',       desc:'Expanding capabilities include: scheduling meetings, collecting CVs, qualifying leads, running surveys, accepting payments, and booking appointments — all automated through the agent.' },
 ]
 
 export default function AIAgent() {
@@ -25,28 +26,6 @@ export default function AIAgent() {
     script.async = true
     document.body.appendChild(script)
   }, [])
-
-  const openAgentChat = () => {
-    const agentWindow = window.JotformAgent || window.JotFormAgent || window.AgentInitializer
-
-    if (agentWindow?.open) {
-      agentWindow.open()
-      return
-    }
-
-    if (agentWindow?.openChat) {
-      agentWindow.openChat()
-      return
-    }
-
-    const chatLauncher = document.querySelector(
-      '[class*="JotformAgent"], [id*="JotformAgent"], [class*="jotform-agent"], [id*="jotform-agent"]'
-    )
-
-    if (chatLauncher instanceof HTMLElement) {
-      chatLauncher.click()
-    }
-  }
 
   return (
     <section id="agent" className={styles.section}>
@@ -91,7 +70,7 @@ export default function AIAgent() {
                 The agent can answer questions, share my GitHub &amp; LinkedIn,
                 and send you a follow-up email automatically.
               </div>
-              <button type="button" className="btn-primary" onClick={openAgentChat}>
+              <button type="button" className="btn-primary" onClick={() => window.open('https://agent.jotform.com/019e4cc3c0c1778d9c1afe73dce0d1aac291', '_blank')}>
                 💬 Open Agent Chat
               </button>
             </div>
