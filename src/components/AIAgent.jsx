@@ -70,7 +70,7 @@ export default function AIAgent() {
                 The agent can answer questions, share my GitHub &amp; LinkedIn,
                 and send you a follow-up email automatically.
               </div>
-              <button type="button" className="btn-primary" onClick={() => window.open('https://agent.jotform.com/019e4cc3c0c1778d9c1afe73dce0d1aac291')}>
+              <button type="button" className="btn-primary" onClick={() => window.open('https://agent.jotform.com/019e4cc3c0c1778d9c1afe73dce0d1aac291', '_blank')}>
                 💬 Open Agent Chat
               </button>
             </div>
