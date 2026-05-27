@@ -12,25 +12,27 @@ const features = [
 ]
 
 function openJotformAgent() {
-  // Try every possible selector Jotform uses
-  const selectors = [
-    '.ai-agent-avatar.size-md',
-    '.ai-agent-avatar',
-    '[class*="ai-agent-avatar"]',
-    '[class*="AgentButton"]',
-    '[id*="AgentButton"]',
-    '[class*="agent-button"]',
-    '[class*="chatbot-button"]',
-    'button[class*="agent"]',
-  ]
-  for (const sel of selectors) {
-    const el = document.querySelector(sel)
-    if (el) {
-      el.click()
+  const iframe = document.querySelector('iframe[src*="jotform"]')
+  if (iframe) {
+    iframe.style.display = 'block'
+    iframe.style.zIndex = '99999'
+    return
+  }
+  const allButtons = document.querySelectorAll('button, div[role="button"], [class*="avatar"], [class*="bubble"], [class*="launcher"], [class*="trigger"]')
+  for (const btn of allButtons) {
+    const cls = (btn.className || '').toString().toLowerCase()
+    if (
+      cls.includes('agent') ||
+      cls.includes('chat') ||
+      cls.includes('avatar') ||
+      cls.includes('jotform') ||
+      cls.includes('bubble') ||
+      cls.includes('launcher')
+    ) {
+      btn.click()
       return
     }
   }
-  // Last resort — open in new tab
   window.open('https://agent.jotform.com/019e4cc3c0c1778d9c1afe73dce0d1aac291', '_blank')
 }
 
@@ -46,6 +48,12 @@ export default function AIAgent() {
     script.id = JOTFORM_SCRIPT_ID
     script.src = JOTFORM_SCRIPT
     script.async = true
+    script.onload = () => {
+      setTimeout(() => {
+        const bubble = document.querySelector('[class*="avatar"], [class*="bubble"], [class*="launcher"]')
+        if (bubble) bubble.setAttribute('data-jotform-bubble', 'true')
+      }, 2000)
+    }
     document.body.appendChild(script)
   }, [])
 

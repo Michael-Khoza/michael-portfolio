@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { supabase } from '../lib/supabase'
+import emailjs from '@emailjs/browser'
 import styles from './Contact.module.css'
 
 const contacts = [
@@ -22,22 +22,23 @@ export default function Contact() {
 
     setStatus('loading')
     try {
-      const { error } = await supabase
-        .from('contact_messages')
-        .insert([{
-          name: form.name,
-          email: form.email,
+      await emailjs.send(
+        'YOUR_SERVICE_ID',
+        'YOUR_TEMPLATE_ID',
+        {
+          from_name: form.name,
+          from_email: form.email,
           subject: form.subject,
           message: form.message,
-          created_at: new Date().toISOString(),
-        }])
-
-      if (error) throw error
+          to_email: 'khozamichael21@gmail.com',
+        },
+        'YOUR_PUBLIC_KEY'
+      )
 
       setStatus('success')
       setForm({ name:'', email:'', subject:'', message:'' })
     } catch (err) {
-      console.error('Supabase error:', err)
+      console.error('EmailJS error:', err)
       setStatus('error')
     }
   }
@@ -100,10 +101,10 @@ export default function Contact() {
             </button>
 
             {status === 'success' && (
-              <div className={styles.success}>✓ Message saved! Michael's AI agent will follow up shortly.</div>
+              <div className={styles.success}>✓ Message sent! Michael will get back to you within 24 hours.</div>
             )}
             {status === 'error' && (
-              <div className={styles.error}>⚠ Could not send — check your Supabase connection.</div>
+              <div className={styles.error}>⚠ Failed to send. Please email khozamichael21@gmail.com directly.</div>
             )}
           </form>
         </div>
