@@ -5,21 +5,43 @@ const JOTFORM_SCRIPT = 'https://cdn.jotfor.ms/agent/embedjs/019e4cc3c0c1778d9c1a
 const JOTFORM_SCRIPT_ID = 'jotform-agent-script'
 
 const features = [
-  { icon:'📧', color:'lime',   title:'Auto Email Follow-up',           desc:'Automatically sends a personalised follow-up email to every visitor who reaches out — no manual effort needed, every lead is captured.' },
-  { icon:'🧠', color:'ice',    title:'Knows Everything About Michael', desc:'Trained on Michael\'s full profile — skills, ICI services, credentials, competition history and availability. Handles recruiter and client questions instantly.' },
-  { icon:'💬', color:'orange', title:'WhatsApp & LinkedIn',            desc:'Instantly shares Michael\'s WhatsApp link (wa.me/27694317707) and LinkedIn profile when asked — connecting people directly without friction.' },
-  { icon:'⚡', color:'lime',   title:'More Actions Coming Soon',       desc:'Expanding capabilities include: scheduling meetings, collecting CVs, qualifying leads, running surveys, accepting payments, and booking appointments — all automated through the agent.' },
+  { icon:'📧', color:'lime',   title:'Auto Email Follow-up',           desc:"Automatically sends a personalised follow-up email to every visitor who reaches out — no manual effort needed, every lead is captured." },
+  { icon:'🧠', color:'ice',    title:'Knows Everything About Michael', desc:"Trained on Michael's full profile — skills, ICI services, credentials, competition history and availability. Handles recruiter and client questions instantly." },
+  { icon:'💬', color:'orange', title:'WhatsApp & LinkedIn',            desc:"Instantly shares Michael's WhatsApp link and LinkedIn profile when asked — connecting people directly without friction." },
+  { icon:'⚡', color:'lime',   title:'More Actions Coming Soon',       desc:"Expanding capabilities include: scheduling meetings, collecting CVs, qualifying leads, running surveys, accepting payments, and booking appointments — all automated." },
 ]
+
+function openJotformAgent() {
+  // Try every possible selector Jotform uses
+  const selectors = [
+    '.ai-agent-avatar.size-md',
+    '.ai-agent-avatar',
+    '[class*="ai-agent-avatar"]',
+    '[class*="AgentButton"]',
+    '[id*="AgentButton"]',
+    '[class*="agent-button"]',
+    '[class*="chatbot-button"]',
+    'button[class*="agent"]',
+  ]
+  for (const sel of selectors) {
+    const el = document.querySelector(sel)
+    if (el) {
+      el.click()
+      return
+    }
+  }
+  // Last resort — open in new tab
+  window.open('https://agent.jotform.com/019e4cc3c0c1778d9c1afe73dce0d1aac291', '_blank')
+}
 
 export default function AIAgent() {
   useEffect(() => {
     if (
       document.getElementById(JOTFORM_SCRIPT_ID) ||
-      document.querySelector('script[src*="019e4cc3c0c1778d9c1afe73dce0d1aac291/embed.js"]')
+      document.querySelector(`script[src*="019e4cc3c0c1778d9c1afe73dce0d1aac291"]`)
     ) {
-      return undefined
+      return
     }
-
     const script = document.createElement('script')
     script.id = JOTFORM_SCRIPT_ID
     script.src = JOTFORM_SCRIPT
@@ -34,7 +56,7 @@ export default function AIAgent() {
         <div className="section-label">Powered by Jotform AI</div>
         <h2 className="section-title">My AI<br /><span style={{color:'var(--lime)'}}>Agent</span></h2>
         <p className={styles.sub}>
-          Ask it anything about me — skills, ICI, availability, projects.
+          Ask it anything about me — skills, ICI services, availability, projects.
           It sends automatic follow-up emails and shares my profiles instantly.
         </p>
 
@@ -66,11 +88,17 @@ export default function AIAgent() {
               <div className={styles.placeholderIcon}>🤖</div>
               <div className={styles.placeholderTitle}>Chat with my AI Agent</div>
               <div className={styles.placeholderDesc}>
-                Click the chat bubble in the <strong>bottom corner</strong> of the screen to start.
-                The agent can answer questions, share my GitHub &amp; LinkedIn,
-                and send you a follow-up email automatically.
+                Click the button below or the bubble in the{' '}
+                <strong style={{color:'var(--lime)'}}>bottom right corner</strong>{' '}
+                to start. The agent answers questions, shares my GitHub &amp; LinkedIn,
+                and sends a follow-up email automatically.
               </div>
-              <button type="button" className="btn-primary" onClick={() => window.open('https://agent.jotform.com/019e4cc3c0c1778d9c1afe73dce0d1aac291', '_blank')}>
+              <button
+                type="button"
+                className="btn-primary"
+                style={{marginTop:'1rem'}}
+                onClick={openJotformAgent}
+              >
                 💬 Open Agent Chat
               </button>
             </div>
