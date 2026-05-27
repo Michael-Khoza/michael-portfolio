@@ -12,28 +12,20 @@ const features = [
 ]
 
 function openJotformAgent() {
-  const iframe = document.querySelector('iframe[src*="jotform"]')
-  if (iframe) {
-    iframe.style.display = 'block'
-    iframe.style.zIndex = '99999'
+  const bubble = document.querySelector('.ai-agent-avatar.size-md')
+  if (bubble) {
+    bubble.click()
     return
   }
-  const allButtons = document.querySelectorAll('button, div[role="button"], [class*="avatar"], [class*="bubble"], [class*="launcher"], [class*="trigger"]')
-  for (const btn of allButtons) {
-    const cls = (btn.className || '').toString().toLowerCase()
-    if (
-      cls.includes('agent') ||
-      cls.includes('chat') ||
-      cls.includes('avatar') ||
-      cls.includes('jotform') ||
-      cls.includes('bubble') ||
-      cls.includes('launcher')
-    ) {
-      btn.click()
-      return
+  // Fallback: try after short delay in case widget hasn't fully loaded
+  setTimeout(() => {
+    const delayed = document.querySelector('.ai-agent-avatar.size-md')
+    if (delayed) {
+      delayed.click()
+    } else {
+      window.open('https://agent.jotform.com/019e4cc3c0c1778d9c1afe73dce0d1aac291', '_blank')
     }
-  }
-  window.open('https://agent.jotform.com/019e4cc3c0c1778d9c1afe73dce0d1aac291', '_blank')
+  }, 1500)
 }
 
 export default function AIAgent() {

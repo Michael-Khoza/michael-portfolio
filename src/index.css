@@ -114,3 +114,10 @@ section { padding: 6rem 3rem; }
   pointer-events: all !important;
   position: fixed !important;
 }
+
+.ai-agent-avatar {
+  z-index: 99999 !important;
+  pointer-events: all !important;
+  position: fixed !important;
+  cursor: pointer !important;
+}
