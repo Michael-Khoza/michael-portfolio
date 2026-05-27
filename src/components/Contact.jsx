@@ -23,8 +23,8 @@ export default function Contact() {
     setStatus('loading')
     try {
       await emailjs.send(
-        'YOUR_SERVICE_ID',
-        'YOUR_TEMPLATE_ID',
+        'service_spnffun',
+        'template_zzinb7m',
         {
           from_name: form.name,
           from_email: form.email,
@@ -32,7 +32,7 @@ export default function Contact() {
           message: form.message,
           to_email: 'khozamichael21@gmail.com',
         },
-        'YOUR_PUBLIC_KEY'
+        '8h1vCMWZqABXEXQU2'
       )
 
       setStatus('success')
