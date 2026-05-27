@@ -16,9 +16,24 @@ export default function Contact() {
 
   const handleChange = e => setForm(f => ({ ...f, [e.target.name]: e.target.value }))
 
+  const validateEmail = (email) => {
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)
+  }
+
   const handleSubmit = async e => {
     e.preventDefault()
-    if (!form.name || !form.email || !form.message) return
+    if (!form.name.trim()) {
+      setStatus('Name is required')
+      return
+    }
+    if (!form.email.trim() || !validateEmail(form.email)) {
+      setStatus('Please enter a valid email address')
+      return
+    }
+    if (!form.message.trim()) {
+      setStatus('Message is required')
+      return
+    }
 
     setStatus('loading')
     try {
@@ -105,6 +120,9 @@ export default function Contact() {
             )}
             {status === 'error' && (
               <div className={styles.error}>⚠ Failed to send. Please email khozamichael21@gmail.com directly.</div>
+            )}
+            {status !== 'idle' && status !== 'success' && status !== 'error' && status !== 'loading' && (
+              <div className={styles.error}>{status}</div>
             )}
           </form>
         </div>
